@@ -1,0 +1,18 @@
+{
+ "n_centerline": 35193875,
+ "recall_19um": 0.6372,
+ "recall_37um": 0.8116,
+ "recall_56um": 0.9104,
+ "null_recall_37um": 0.5482,
+ "n_arcs": 82653,
+ "arc_recall": 0.8994,
+ "arc_fully_missed": 0.0574,
+ "null_arc_recall": 0.577,
+ "null_arc_fully_missed": 0.2705,
+ "recto_side_ratio": 0.5662,
+ "side_n_decided": 28420703,
+ "side_inward": 0.6911,
+ "side_inward_null": 0.5011,
+ "side_inward_ideal": 0.927,
+ "side_skill_of_ideal": 0.4459
+}
