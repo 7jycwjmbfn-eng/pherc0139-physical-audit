@@ -1,12 +1,15 @@
-# A physical audit of surface predictions on PHerc0139
+# A physical report card for the challenge's surface models (PHerc0139)
 
-Cross-resolution registration of PHerc0139's two public scans, used as model-free ground truth to audit the official surface prediction volumes — plus the truth labels and the evaluator, packaged for reuse.
+`surface-m7` and `surface-recto-090` are the challenge's official production models — m7 is the deployed Kaggle-winning nnU-Net. **This project did not train a model. It built the thing the challenge has been missing: a way to check the models that doesn't depend on any model.** Every existing validation of surface predictions relies on another model or on labels traced from model output; villa issue #193 closed on 2026-08-08 with both attempts at a model-free check withdrawn.
 
-## What this is
+What was done here, in order:
 
-PHerc0139 is the only Grand-Prize-list scroll with two public scans of the same object at different resolutions: a full-scroll volume at 9.362 um (2025-07, 113 keV) and a 19-tile mosaic ROI at 1.129 um (2025-12, 59 keV). No official registration between them existed. We registered them, validated the registration on held-out data, and then used the 1.129 um scan as model-free ground truth to audit the official `surface-m7` and `surface-recto-090` prediction volumes published for the 9.362 um frame.
+1. **Registered the only scroll with two public scans at different resolutions** — PHerc0139's 9.362 um full-scroll scan and its 1.129 um mosaic ROI. No transform between them existed. Held-out accuracy of the mapping: **4.1 um median** (papyrus is ~40 um thick). Along the way: the two scans' nominal voxel sizes disagree by 0.22 percent, and a smooth 5-11 um cross-scan deformation field was measured — both previously unreported.
+2. **That registration turns the 1.129 um scan into physical ground truth** for the 9.362 um frame: at 1.129 um the sheets are simply visible, no model needed.
+3. **First physical audit of both official models.** Three findings: 5.7 percent of 1.2 mm sheet stretches are completely missing from m7's prediction and the missed ones are 11 percent darker; the "recto" band sits on the recto side only 69 percent of the time against an ideal-model ceiling of 92.7; and the older recto-090 model matches m7 on coverage while placing sides clearly better — the production upgrade gave up recto semantics without gaining coverage, which no existing metric could see.
+4. **The ground truth and the evaluator are released** (376 MB label volume + a standalone script), so any surface model on this volume can be given the same report card. The evaluator reproduces every number in this report to four decimals.
 
-The point of using a second physical scan as the reference: every existing validation of surface predictions relies either on another model or on labels derived from meshes that were themselves traced on model output. villa issue #193 closed (2026-08-08) with both model-free validation attempts withdrawn (a CT statistic with window bias, and a second model at chance level). A higher-resolution scan of the same object sidesteps both failure modes.
+Every metric below carries a shifted-null control, and the side metric also carries an ideal-model ceiling; a synthetic self-test guards each instrument.
 
 ## Part 1: the registration
 
