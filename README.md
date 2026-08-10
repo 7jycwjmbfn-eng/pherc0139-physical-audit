@@ -14,13 +14,13 @@ Arc-level metrics (1.2 mm sheet stretches, shifted-null controlled):
 | | PHerc0139 (loose) | PHerc1203 (compressed, GP list) |
 |---|---|---|
 | Arc recall / shifted null | 89.9% / 57.7% | 76.1% / 64.6% |
-| **Real skill margin** | **+32.2 pp** | **+11.5 pp** |
+| **Margin over null** | **+32.2 pp** | **+11.5 pp** |
 | Stretches completely missed | 5.7% | 12.7% |
 | Recto-side placement (chance 50) | 69.1% = 45% of ideal | 54.8% = **12% of ideal** |
 
 Three conclusions that survive every analysis choice we tested:
 
-1. **On the compressed Grand-Prize scroll, the production model's real coverage skill drops to a third and its recto-side semantics nearly vanish** — while raw recall only falls from 90 to 76, because sheet density masks the degradation.
+1. **On the compressed Grand-Prize scroll, the production model's margin over the null drops to a third and its recto-side semantics nearly vanish** — while raw recall only falls from 90 to 76, because sheet density masks the degradation.
 2. **Radius-based recall without a shifted-null control is untrustworthy in dense tissue** (the null alone reaches 64.6 percent on PHerc1203). This applies to any evaluation on these volumes, not just this one.
 3. Zone-stratified numbers are sensitive to the zone definition (two physically reasonable zonings give different within-scroll curves; both are in `results/1203/`); the cross-scroll comparison above is zone-free and robust.
 
@@ -89,7 +89,7 @@ Point-level tolerance note: m7 predicts the recto surface, not the sheet interio
 
 ### Scope limits (stated up front)
 
-- The 1.129 um ROI of PHerc0139 contains no compressed regions: 6,755 tissue windows measured, median sheet spacing 271 um, 0.06 percent below 100 um, and the spacing instrument's failure channels account for every window (0.74 percent dropped). This audit says nothing about model behavior in compressed zones, which is where issue #191 locates the hard failures. Its value is the reference-quality error measurement in ordinary tissue, which no model-dependent method provides.
+- The 1.129 um ROI of PHerc0139 contains no compressed regions: 6,755 tissue windows measured, median sheet spacing 271 um, 0.06 percent below 100 um, and the spacing instrument's failure channels account for every window (0.74 percent dropped). This PHerc0139 audit therefore only covers ordinary tissue; the PHerc1203 campaign below is where compressed zones are measured.
 - Truth threshold sensitivity: arc recall / fully-missed at thresholds 50 / 65 / 80 are 90.7 / 89.9 / 90.0 percent and 5.8 / 5.7 / 5.3 percent. The conclusions do not depend on the threshold choice.
 - Distances are 2D per-slice (sheets near-vertical; small underestimate of 3D distance).
 
@@ -133,4 +133,4 @@ Validation: run against the published m7 volume, it reproduces every audit numbe
 
 ## License
 
-Code: MIT. The label volume and all derived numbers inherit CC BY-NC 4.0 from the underlying Vesuvius Challenge scan data.
+Code: MIT. The label volumes and all derived numbers inherit CC BY-NC 4.0 from the underlying Vesuvius Challenge scan data.
