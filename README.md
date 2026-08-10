@@ -1,15 +1,13 @@
 # A physical report card for the challenge's surface models (two scrolls)
 
-`surface-m7` and `surface-recto-090` are the challenge's official production models — m7 is the deployed Kaggle-winning nnU-Net. **This project did not train a model. It built the thing the challenge has been missing: a way to check the models that doesn't depend on any model.** Every existing validation of surface predictions relies on another model or on labels traced from model output; villa issue #193 closed on 2026-08-08 with both attempts at a model-free check withdrawn.
-
-Two scrolls have a second public scan of the same object at higher resolution. Both pairs were registered here, and both audits are in this repository:
+Two scrolls have a second public scan of the same object at higher resolution. This repository registers both pairs, uses the high-resolution scan of each as ground truth to evaluate the challenge's published surface predictions (`surface-m7`, the deployed Kaggle-winning nnU-Net, and the older `surface-recto-090`), and releases the label volumes and the evaluator so the same check can be run on any surface model. At 1-2 um the sheets are directly visible, so this ground truth does not come from another model or from mesh-derived labels — the two dependencies that existing evaluations have.
 
 - **PHerc0139** (not on the Grand Prize list; loosely wound): 9.362 um full scroll + 1.129 um mosaic ROI. Registration held-out error **4.1 um** median. Byproducts: the two scans' nominal voxel sizes disagree by 0.22 percent, and a smooth 5-11 um cross-scan deformation field was measured — both previously unreported.
 - **PHerc1203** (on the 13-scroll Grand Prize list; heavily compressed — 7-14 percent of its tissue is clustered boundary-poor material, with fused blocks confirmed visually at 4.8 um): 9.362 um full scroll + 2.403 um scan covering the full cross-section over 36 mm. Registration held-out error **2.4 um** median.
 
-The high-resolution scan of each pair becomes physical ground truth for its 9.362 um frame: at 1-2 um the sheets are simply visible, no model needed. The audited m7 checkpoint (20260413222639) is the one whose predictions are published for all 13 Grand Prize scrolls.
+The audited m7 checkpoint (20260413222639) is the one whose predictions are published for all 13 Grand Prize scrolls.
 
-## The headline: the same model, moved to the scroll that matters
+## Main result: the same model on both scrolls
 
 Arc-level metrics (1.2 mm sheet stretches, shifted-null controlled):
 
@@ -116,7 +114,7 @@ Two label volumes ship as release assets, each a uint8 bit-flag zarr on its scro
 python3 eval_surface_pred.py labels0139_L1.zarr /path/to/prediction.zarr 0
 ```
 
-Validation: run against the published m7 volume, it reproduces every audit number in this report to four decimals (recall 0.6372 / 0.8116 / 0.9104, arc recall 0.8994, fully-missed 0.0574, nulls matching). Issue #193 closed asking for objective labels that do not depend on a model; this is a first installment, scoped to ordinary tissue.
+Validation: run against the published m7 volume, it reproduces every audit number in this report to four decimals (recall 0.6372 / 0.8116 / 0.9104, arc recall 0.8994, fully-missed 0.0574, nulls matching). villa issue #193 asked for objective labels that do not depend on a model; these two volumes are built that way, and the PHerc1203 one covers compressed and boundary-poor tissue.
 
 ## Related work
 
