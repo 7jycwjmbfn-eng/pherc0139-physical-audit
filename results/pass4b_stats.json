@@ -1,0 +1,10 @@
+{
+ "n_tissue": 6755,
+ "frac_ok": 0.9925980754996299,
+ "frac_drop_coher": 0.0025166543301258326,
+ "frac_drop_flat": 0.0,
+ "frac_drop_peaks": 0.004885270170244264,
+ "spacing_median_um": 270.96,
+ "frac_below_100um_of_ok": 0.0005965697240865026,
+ "frac_below_130um_of_ok": 0.0011931394481730052
+}

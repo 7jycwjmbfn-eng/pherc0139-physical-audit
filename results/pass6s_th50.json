@@ -1,0 +1,25 @@
+{
+ "threshold": 50,
+ "n_arcs": 10058,
+ "arc_recall_cov50": 0.9066414794193677,
+ "arc_gone_cov10": 0.058361503280970374,
+ "null_arc_recall_cov50": 0.5690992244979121,
+ "null_arc_gone_cov10": 0.2777888248160668,
+ "n_gone": 587,
+ "hit_arc_intensity": 122.5352578924176,
+ "gone_arc_intensity": 101.52096598962325,
+ "per_slab": [
+  {
+   "iz": 22,
+   "missing_chunks": 168,
+   "truth_frac": 0.25535834737829927,
+   "pred_frac": 0.10615978353585342
+  },
+  {
+   "iz": 26,
+   "missing_chunks": 163,
+   "truth_frac": 0.2534574302882196,
+   "pred_frac": 0.10667189896522641
+  }
+ ]
+}

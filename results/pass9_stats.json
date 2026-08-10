@@ -1,0 +1,16 @@
+{
+ "model": "surface-recto-090",
+ "n_centerline": 35193875,
+ "recall_19um": 0.7794404566135442,
+ "recall_37um": 0.886527641528533,
+ "recall_56um": 0.9382624391318092,
+ "null_recall_37um": 0.6116312568593256,
+ "pred_beyond_37um": 0.02140027337669011,
+ "n_arcs": 82653,
+ "arc_recall_cov50": 0.9473824301598248,
+ "arc_gone_cov10": 0.03594545872503115,
+ "null_arc_recall_cov50": 0.6338547905097214,
+ "null_arc_gone_cov10": 0.23953153545545836,
+ "inward_frac_of_decided": 0.7579279220156581,
+ "n_side": 32872299
+}

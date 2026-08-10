@@ -1,0 +1,9 @@
+{
+ "n_windows": 6705,
+ "spacing_median_um": 270.96,
+ "spacing_p10_um": 198.704,
+ "frac_below_100um": 0.0005965697240865026,
+ "frac_below_65um": 0.0,
+ "frac_below_130um": 0.0011931394481730052,
+ "note": "center-to-center sheet spacing from hi_L4 structure-tensor projected profiles; winding pitch reference 207-259 um"
+}

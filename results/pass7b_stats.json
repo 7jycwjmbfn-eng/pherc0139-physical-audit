@@ -1,0 +1,10 @@
+{
+ "n_pts": 31903637,
+ "inward_frac_of_decided": 0.6911536519359016,
+ "outward_frac_of_decided": 0.30884634806409844,
+ "tie_frac": 0.11000886826790313,
+ "null_inward_frac_of_decided": 0.5011472347280602,
+ "ideal_inward_frac_of_decided": 0.927154661421625,
+ "n_ideal": 30234661,
+ "n_null": 21607402
+}

@@ -1,0 +1,98 @@
+{
+ "schema_version": "1.0.0",
+ "fixed_volume": "20250728140407",
+ "moving_volume": "20260413113053",
+ "transformation_matrix": [
+  [
+   0.12085535,
+   -0.00078091,
+   0.0013823,
+   3568.1762
+  ],
+  [
+   -0.00085218,
+   -0.12078445,
+   0.00451766,
+   5538.5708
+  ],
+  [
+   0.00133953,
+   -0.00451766,
+   -0.12078445,
+   5190.5926
+  ]
+ ],
+ "axis_order": "zyx",
+ "fixed_landmarks": [
+  [
+   3738.98,
+   3159.16,
+   4647.57
+  ],
+  [
+   4634.64,
+   3672.78,
+   4520.0
+  ],
+  [
+   5019.99,
+   3414.97,
+   4775.94
+  ],
+  [
+   4123.37,
+   3671.87,
+   4519.6
+  ],
+  [
+   5018.9,
+   4055.17,
+   1703.74
+  ],
+  [
+   4250.95,
+   3030.36,
+   4648.02
+  ]
+ ],
+ "moving_landmarks": [
+  [
+   1502.57,
+   19827.29,
+   3771.45
+  ],
+  [
+   8874.11,
+   15584.96,
+   5071.62
+  ],
+  [
+   12089.19,
+   17600.99,
+   2912.39
+  ],
+  [
+   4638.37,
+   15613.04,
+   5023.59
+  ],
+  [
+   11768.43,
+   13261.78,
+   28504.87
+  ],
+  [
+   5745.6,
+   20857.41,
+   3779.98
+  ]
+ ],
+ "provenance": {
+  "method": "exhaustive global feature search + 3D block matching, rigid+scale robust fit (10,008 blocks, median NCC 0.906)",
+  "heldout_median_error_um": 4.09,
+  "heldout_p95_error_um": 12.41,
+  "fitted_isotropic_scale_vs_nominal": 1.00217,
+  "note": "nominal voxel sizes (9.362/1.129 um) disagree by 0.22%; this matrix includes the correction. A residual smooth deformation field (5-11 um) exists and is published alongside (pass3_final.npz).",
+  "date": "2026-08-10"
+ }
+}
