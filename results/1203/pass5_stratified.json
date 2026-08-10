@@ -1,0 +1,33 @@
+{
+ "threshold": 56,
+ "loose": {
+  "n_centerline": 1394663,
+  "n_arcs": 4429,
+  "recall_37um": 0.5878,
+  "null_recall_37um": 0.4326,
+  "arc_recall": 0.734,
+  "arc_gone": 0.1384,
+  "null_arc_recall": 0.529,
+  "null_arc_gone": 0.3522
+ },
+ "compressed": {
+  "n_centerline": 12019163,
+  "n_arcs": 9643,
+  "recall_37um": 0.6447,
+  "null_recall_37um": 0.6057,
+  "arc_recall": 0.7624,
+  "arc_gone": 0.128,
+  "null_arc_recall": 0.6768,
+  "null_arc_gone": 0.1657
+ },
+ "fused": {
+  "n_centerline": 12582750,
+  "n_arcs": 2305,
+  "recall_37um": 0.7352,
+  "null_recall_37um": 0.6959,
+  "arc_recall": 0.8087,
+  "arc_gone": 0.0989,
+  "null_arc_recall": 0.7449,
+  "null_arc_gone": 0.1245
+ }
+}

@@ -38,3 +38,7 @@ Each stage writes its outputs next to the scripts and prints its numbers; each c
 Figures: `gen_figs.py`. Transform export with landmark self-check: `gen_transform.py`.
 
 Runtimes on the test machine: stage 1 ~30 min (22 cores), stages 2-7 5-10 min each (4 workers; bounded by RAM, not cores).
+
+## PHerc1203
+
+The `code/*_1203.py` drivers re-run the same stages on PHerc1203 (volumes `20250820131727` at 9.362 um and `20260319130212` at 2.403 um; predictions `20250820131727-surface-20260413222639-surface-m7-L0-th0.2`). Data windows and chunk ranges are in each driver's header. The run order mirrors the 0139 stages: `pass1_1203` (global lock, with the same selftest), `pass2_1203`, `pass3_1203` (held-out CV), `survey_1203` + `calib_1203` (zone calibration), `pass5b_1203` (stratified audit), `pass7_1203` (side audit), `pass10_1203` (labels). The 1203 volumes are ~3x larger; stages run with 3 workers and stay under 27 GB RAM.

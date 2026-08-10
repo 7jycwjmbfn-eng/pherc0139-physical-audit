@@ -1,15 +1,32 @@
-# A physical report card for the challenge's surface models (PHerc0139)
+# A physical report card for the challenge's surface models (two scrolls)
 
 `surface-m7` and `surface-recto-090` are the challenge's official production models — m7 is the deployed Kaggle-winning nnU-Net. **This project did not train a model. It built the thing the challenge has been missing: a way to check the models that doesn't depend on any model.** Every existing validation of surface predictions relies on another model or on labels traced from model output; villa issue #193 closed on 2026-08-08 with both attempts at a model-free check withdrawn.
 
-What was done here, in order:
+Two scrolls have a second public scan of the same object at higher resolution. Both pairs were registered here, and both audits are in this repository:
 
-1. **Registered PHerc0139's two public scans** — the 9.362 um full-scroll scan and the 1.129 um mosaic ROI; no transform between them existed. (PHerc0139 is not itself on the 13-scroll Grand Prize list, but the audited m7 checkpoint, 20260413222639, is the same one whose predictions are published for all 13 Grand Prize scrolls, so the model-level findings carry over; a replication on the Grand-Prize scroll PHerc1203, which also has a second public scan at 2.403 um, is in progress.) Held-out accuracy of the mapping: **4.1 um median** (papyrus is ~40 um thick). Along the way: the two scans' nominal voxel sizes disagree by 0.22 percent, and a smooth 5-11 um cross-scan deformation field was measured — both previously unreported.
-2. **That registration turns the 1.129 um scan into physical ground truth** for the 9.362 um frame: at 1.129 um the sheets are simply visible, no model needed.
-3. **First physical audit of both official models.** Three findings: 5.7 percent of 1.2 mm sheet stretches are completely missing from m7's prediction and the missed ones are 11 percent darker; the "recto" band sits on the recto side only 69 percent of the time against an ideal-model ceiling of 92.7; and the older recto-090 model matches m7 on coverage while placing sides clearly better — the production upgrade gave up recto semantics without gaining coverage, which no existing metric could see.
-4. **The ground truth and the evaluator are released** (376 MB label volume + a standalone script), so any surface model on this volume can be given the same report card. The evaluator reproduces every number in this report to four decimals.
+- **PHerc0139** (not on the Grand Prize list; loosely wound): 9.362 um full scroll + 1.129 um mosaic ROI. Registration held-out error **4.1 um** median. Byproducts: the two scans' nominal voxel sizes disagree by 0.22 percent, and a smooth 5-11 um cross-scan deformation field was measured — both previously unreported.
+- **PHerc1203** (on the 13-scroll Grand Prize list; heavily compressed — 7-14 percent of its tissue is clustered boundary-poor material, with fused blocks confirmed visually at 4.8 um): 9.362 um full scroll + 2.403 um scan covering the full cross-section over 36 mm. Registration held-out error **2.4 um** median.
 
-Every metric below carries a shifted-null control, and the side metric also carries an ideal-model ceiling; a synthetic self-test guards each instrument.
+The high-resolution scan of each pair becomes physical ground truth for its 9.362 um frame: at 1-2 um the sheets are simply visible, no model needed. The audited m7 checkpoint (20260413222639) is the one whose predictions are published for all 13 Grand Prize scrolls.
+
+## The headline: the same model, moved to the scroll that matters
+
+Arc-level metrics (1.2 mm sheet stretches, shifted-null controlled):
+
+| | PHerc0139 (loose) | PHerc1203 (compressed, GP list) |
+|---|---|---|
+| Arc recall / shifted null | 89.9% / 57.7% | 76.1% / 64.6% |
+| **Real skill margin** | **+32.2 pp** | **+11.5 pp** |
+| Stretches completely missed | 5.7% | 12.7% |
+| Recto-side placement (chance 50) | 69.1% = 45% of ideal | 54.8% = **12% of ideal** |
+
+Three conclusions that survive every analysis choice we tested:
+
+1. **On the compressed Grand-Prize scroll, the production model's real coverage skill drops to a third and its recto-side semantics nearly vanish** — while raw recall only falls from 90 to 76, because sheet density masks the degradation.
+2. **Radius-based recall without a shifted-null control is untrustworthy in dense tissue** (the null alone reaches 64.6 percent on PHerc1203). This applies to any evaluation on these volumes, not just this one.
+3. Zone-stratified numbers are sensitive to the zone definition (two physically reasonable zonings give different within-scroll curves; both are in `results/1203/`); the cross-scroll comparison above is zone-free and robust.
+
+Every metric carries a shifted-null control; the side metric also carries an ideal-recto ceiling built from the truth; a synthetic self-test guards each instrument; registration error (2.4-4.1 um) is small against every tolerance used (19-56 um). Both label volumes ship with a standalone evaluator that reproduces the reported numbers from the packaged files alone.
 
 ## Part 1: the registration
 
@@ -78,9 +95,20 @@ Point-level tolerance note: m7 predicts the recto surface, not the sheet interio
 - Truth threshold sensitivity: arc recall / fully-missed at thresholds 50 / 65 / 80 are 90.7 / 89.9 / 90.0 percent and 5.8 / 5.7 / 5.3 percent. The conclusions do not depend on the threshold choice.
 - Distances are 2D per-slice (sheets near-vertical; small underestimate of 3D distance).
 
-## The dataset and evaluator
+## The PHerc1203 campaign (Grand Prize scroll)
 
-The truth is packaged as `labels0139_L1.zarr` (376 MB, zstd, 128^3 chunks; attached to the GitHub release): a uint8 bit-flag volume on the lo scan's level-1 grid (18.724 um), window 1248 x 2304 x 2208 at origin (1728, 576, 480). Bits: valid (1) / material (2) / centerline (4) / recto_band (8). Images are not shipped; the lo CT volume is public and `.zattrs` names the exact grid.
+- **Registration**: exhaustive global search locks at z-score 44.0 (rotation 0 deg, z offset 74.4 mm); 19,116 matched blocks, median NCC 0.899; split-half held-out error 2.4 um median, 6.1 um p95. Fitted scale correction is only -0.025 percent for this pair (against 0.22 percent for the 0139 pair — the calibration quality of published volumes varies by scan campaign).
+- **Difficult tissue confirmed and mapped**: 7-14 percent of tissue windows are unmeasurable by structure-tensor spacing at 19 um (73-86 percent of them clustered, growing along z); a 4.8 um look inside the largest cluster shows crosshatched fiber bundles pressed into near-solid blocks (1 mm windows at 99.75 percent material). A threshold-robust physical zone variable — gap visibility, the fraction of local material within 57 um of a resolvable air boundary — separates loose (~87 percent) from boundary-poor (~28-35 percent) tissue and ships as a bit plane in the label volume.
+- **Registration holds in dense tissue**: per-zone block-match residuals are 3.5 / 5.1 / 4.2 um (loose / dense / boundary-poor), so labels cast in difficult regions inherit only ~5 um mapping error.
+- **Side-of-sheet replication**: 9.1M points, m7 inward fraction 54.8 percent against a 50.1 null and an 88.3 ideal ceiling — 12 percent of the ideal signal, versus 45 percent on PHerc0139.
+- **Fully-missed stretches double** (12.7 percent vs 5.7), and the standalone evaluator reproduces the aggregate numbers from the packaged labels alone.
+
+## The datasets and evaluator
+
+Two label volumes ship as release assets, each a uint8 bit-flag zarr on its scroll's level-1 grid (18.724 um), images not included (the CT volumes are public; `.zattrs` names the exact grid):
+
+- `labels0139_L1.zarr` (376 MB): window 1248 x 2304 x 2208 at origin (1728, 576, 480). Bits: valid (1) / material (2) / centerline (4) / recto_band (8).
+- `labels1203_L1.zarr` (497 MB): window 2016 x 3456 x 3456 at origin (3936, 0, 0). Same bits plus **boundary_poor (16)** — the physical map of material with no resolvable boundary within 57 um at the truth resolution, which is also a first pass at the official 2027 question of telling "no ink" from "ink not yet recovered": in boundary-poor tissue the limiting factor is physics, not the pipeline.
 
 `code/eval_surface_pred.py` (standalone; numpy + scipy + numcodecs) evaluates any binary surface prediction on the same volume's grid against these labels, with the shifted-null control built in:
 
@@ -99,11 +127,11 @@ Validation: run against the published m7 volume, it reproduces every audit numbe
 
 ## Repository layout
 
-- `code/` — the full pipeline, pass1 (global registration) through pass10 (dataset packaging), each stage with a built-in self-test, null control, or ceiling calibration; `eval_surface_pred.py`; the chunk fetcher.
-- `results/` — one JSON per stage with the numbers quoted above, plus the transform npz and missed-arc coordinates.
-- `figures/` — registration checkerboards, prediction/truth overlays, audit bar charts, missed-arc map.
+- `code/` — the full pipeline for both scrolls: pass1 (global registration) through pass10 (dataset packaging) for PHerc0139, and the `*_1203.py` drivers that re-run the same machinery on PHerc1203; each stage has a built-in self-test, null control, or ceiling calibration; `eval_surface_pred.py`; the chunk fetcher.
+- `results/` — one JSON per stage (PHerc0139 at the root, PHerc1203 under `results/1203/`), plus the transform npz and missed-arc coordinates.
+- `figures/` — registration checkerboards, prediction/truth overlays, audit bar charts, missed-arc map; for PHerc1203 the unmeasurable-zone map (`dropmap_z1344.png`), the 4.8 um fused-block interior (`blue_zoom0.png`), and the zone map (`zonemap_z1344.png`).
 - `REPRO.md` — environment, exact S3 prefixes and chunk ranges, run order, runtimes (consumer laptop, no GPU).
-- `20260413113053-to-20250728140407.json` — the transform in the project schema.
+- `20260413113053-to-20250728140407.json` — the PHerc0139 transform in the project schema. The PHerc1203 transform lives in `results/1203/pass3_final.npz` (affine `M2, t2`, hi_L4 voxel to lo_L2 voxel, plus the block-match field and deformation lattice).
 
 ## License
 
