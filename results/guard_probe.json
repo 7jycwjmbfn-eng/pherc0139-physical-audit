@@ -1,0 +1,29 @@
+{
+ "PHerc0139": {
+  "slices_seen": 312,
+  "ctr_ge500": 283,
+  "tb_ge500": 283,
+  "ctr_ge500_and_pb_lt100": 0,
+  "tb_ge500_and_pb_lt100": 0,
+  "ctr_points_at_risk": 0,
+  "min_pb_where_ctr_ge500": 15931,
+  "min_pb_where_tb_ge500": 15931
+ },
+ "PHerc1203": {
+  "slices_seen": 504,
+  "ctr_ge500": 464,
+  "tb_ge500": 464,
+  "ctr_ge500_and_pb_lt100": 0,
+  "tb_ge500_and_pb_lt100": 0,
+  "ctr_points_at_risk": 0,
+  "min_pb_where_ctr_ge500": 738200,
+  "min_pb_where_tb_ge500": 738200
+ }
+}
+
+PHerc0139: evaluator path 0 slices, audit-script path 0 slices, centerline points at risk 0
+    smallest prediction on any scored slice: 15,931 (evaluator), 15,931 (audit scripts), against a threshold of 100
+PHerc1203: evaluator path 0 slices, audit-script path 0 slices, centerline points at risk 0
+    smallest prediction on any scored slice: 738,200 (evaluator), 738,200 (audit scripts), against a threshold of 100
+
+GUARD NEVER FIRED, every published number stands
