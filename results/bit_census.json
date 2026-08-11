@@ -1,0 +1,40 @@
+{
+ "PHerc0139": {
+  "window_voxels": 6348865536,
+  "valid": 2669177928,
+  "valid_pct_of_window": 42.04,
+  "material": 1328716163,
+  "material_pct_of_valid": 49.78,
+  "centerline": 137718669,
+  "centerline_pct_of_material": 10.36,
+  "recto_band": 685890373,
+  "recto_band_pct_of_material": 51.62,
+  "containment": {
+   "material_not_valid": 0,
+   "centerline_not_material": 0,
+   "recto_not_material": 204766850,
+   "bp_not_material": 0,
+   "bp_not_valid": 0
+  }
+ },
+ "PHerc1203": {
+  "window_voxels": 24078974976,
+  "valid": 5019919087,
+  "valid_pct_of_window": 20.85,
+  "material": 4124552223,
+  "material_pct_of_valid": 82.16,
+  "centerline": 101660665,
+  "centerline_pct_of_material": 2.46,
+  "recto_band": 567917451,
+  "recto_band_pct_of_material": 13.77,
+  "boundary_poor": 3077792558,
+  "boundary_poor_pct_of_material": 74.62,
+  "containment": {
+   "material_not_valid": 0,
+   "centerline_not_material": 0,
+   "recto_not_material": 156500866,
+   "bp_not_material": 0,
+   "bp_not_valid": 0
+  }
+ }
+}
