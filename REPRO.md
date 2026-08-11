@@ -2,6 +2,31 @@
 
 Everything below runs on one machine (tested: Windows 11 + WSL2 Ubuntu 22.04, 32 GB RAM of which ~27 GB visible in WSL, no GPU needed). Total compute is a few hours; total download is ~12 GB from the public open-data bucket (anonymous, no credentials).
 
+## Scoring a prediction without rerunning any of it
+
+Most uses need only this. Download a label volume from the release, untar it, point the evaluator at any binary surface prediction on the same scroll's grid:
+
+```bash
+pip3 install numpy scipy numcodecs
+tar xf labels1203_L1.tar
+python3 code/eval_surface_pred.py labels1203_L1.zarr /path/to/prediction.zarr 0
+```
+
+The last argument is the pyramid level of the prediction (0 or 1); level 0 is max-pooled onto the label grid. Runtime is about 15 minutes for PHerc0139 and an hour for PHerc1203 on one core, dominated by reading the prediction volume. Verify the tarball first if you plan to freeze anything against it; hashes are in the release notes and in the README.
+
+The output for the published m7 volumes is committed at `results/eval_selfcheck_0139.json` and `results/1203/eval_selfcheck_1203.json`, so a rerun on those volumes can be diffed rather than eyeballed.
+
+Two smaller scripts, neither needing a prediction volume:
+
+```bash
+python3 code/bit_census.py                     # what every bit plane covers, both volumes
+python3 code/test_side_arms_equivalence.py     # self-check on the side estimator, synthetic
+```
+
+`bit_census.py` reads both label volumes and reports coverage and containment per bit; run it before stratifying on any bit plane, since `boundary_poor` covers 74.6 percent of material on PHerc1203 rather than flagging a minority. `test_side_arms_equivalence.py` needs no data at all and exits nonzero if the side arms' point selection ever drifts.
+
+The rest of this file is for rebuilding the labels from the raw scans.
+
 ## Environment
 
 ```bash
