@@ -13,6 +13,13 @@
  "side_n_decided": 28420703,
  "side_inward": 0.6911,
  "side_inward_null": 0.5011,
+ "side_n_null_decided": 19446818,
  "side_inward_ideal": 0.927,
- "side_skill_of_ideal": 0.4459
+ "side_n_ideal_decided": 27685918,
+ "side_skill_of_ideal": 0.4459,
+ "side_inward_null_full": 0.5011,
+ "side_n_null_full_decided": 21324661,
+ "side_inward_ideal_full": 0.9241,
+ "side_n_ideal_full_decided": 30267584,
+ "side_skill_of_ideal_full": 0.449
 }
